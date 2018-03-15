@@ -49,6 +49,12 @@
       "metadata": {
         "description": "Slackin Release to Deploy (stable/latest)"
       }
+    },
+    "slackMessageChannel": {
+      "type": "string",
+      "metadata": {
+        "description": "Slack channel to send invite message to instead of auto-invite"
+      }
     }
   },
   "resources": [
@@ -99,6 +105,7 @@
             "SLACK_SUBDOMAIN": "[parameters('slackTeamId')]",
             "SLACK_API_TOKEN": "[parameters('slackApiToken')]",
             "SLACKIN_RELEASE": "[parameters('slackinRelease')]",
+            "SLACK_MESSAGE_CHANNEL": "[parameters('slackMessageChannel')]",
             "WEBSITE_NPM_DEFAULT_VERSION": "3.3.12",
             "WEBSITE_NODE_DEFAULT_VERSION": "5.1.1",
             "command": "bash scripts/azuredeploy.sh"

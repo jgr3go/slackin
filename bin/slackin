@@ -10,6 +10,7 @@ args
   .option(['c', 'channels'], 'One or more comma-separated channel names to allow single-channel guests [$SLACK_CHANNELS]', process.env.SLACK_CHANNELS)
   .option(['i', 'interval'], 'How frequently (ms) to poll Slack [$SLACK_INTERVAL or 5000]', process.env.SLACK_INTERVAL || 5000)
   .option(['P', 'path'], 'Path to serve slackin under', '/')
+  .option(['m', 'message'], 'Channel to send invite message instead of auto-invite')
   .option(['s', 'silent'], 'Do not print out warns or errors')
   .option(['x', 'cors'], 'Enable CORS for all routes')
   .option(['C', 'coc'], 'Full URL to a CoC that needs to be agreed to')
@@ -24,6 +25,7 @@ var flags = args.parse(process.argv, {
 var org = args.sub[0] || process.env.SLACK_SUBDOMAIN
 var token = args.sub[1] || process.env.SLACK_API_TOKEN
 var emails = process.env.EMAIL_SLACK_LIST || ''
+var message_channel = process.env.SLACK_MESSAGE_CHANNEL
 
 var gcaptcha_secret = args.sub[2] || process.env.GOOGLE_CAPTCHA_SECRET
 var gcaptcha_sitekey = args.sub[3] || process.env.GOOGLE_CAPTCHA_SITEKEY
@@ -42,6 +44,7 @@ if (!org || !token || !gcaptcha_sitekey || !gcaptcha_secret) {
   flags.emails = emails
   flags.gcaptcha_secret = gcaptcha_secret
   flags.gcaptcha_sitekey = gcaptcha_sitekey
+  flags.message_channel = message_channel
 }
 
 var port = flags.port
